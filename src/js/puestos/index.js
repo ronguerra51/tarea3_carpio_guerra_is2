@@ -12,7 +12,7 @@ btnCancelar.parentElement.style.display = 'none'
 const getPuestos = async () => {
     const nombre = formulario.puesto_nombre.value
     const sueldo = formulario.puesto_sueldo.value
-    const url = `/tarea3_carpio_guerra_is2/controllers//index.puestos?puesto_nombre=${nombre}&puesto_sueldo=${sueldo}`
+     const url = `/tarea3_carpio_guerra_is2/controllers/puestos/index.php?puesto_nombre=${nombre}&puesto_sueldo=${sueldo}`
     const config = {
         method: 'GET'
     }
@@ -63,16 +63,14 @@ const getPuestos = async () => {
                     buttonEliminar.classList.add('btn', 'btn-danger', 'w-100');
                     buttonEliminar.addEventListener('click', () => eliminarPuesto(puesto.puesto_id));
 
-                    celda6.appendChild(buttonModificar)
-                    celda7.appendChild(buttonEliminar)
+                    celda4.appendChild(buttonModificar)
+                    celda5.appendChild(buttonEliminar)
 
                     tr.appendChild(celda1)
                     tr.appendChild(celda2)
                     tr.appendChild(celda3)
                     tr.appendChild(celda4)
                     tr.appendChild(celda5)
-                    tr.appendChild(celda6)
-                    tr.appendChild(celda7)
                     fragment.appendChild(tr);
 
                     contador++
