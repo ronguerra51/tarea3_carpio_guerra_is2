@@ -14,6 +14,9 @@
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="/tarea3_carpio_guerra_is2/views/puestos/index.php">PUESTOS</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="/tarea3_carpio_guerra_is2/views/areas/index.php">AREAS</a>
+                </li>
             </ul>
         </div>
     </div>
