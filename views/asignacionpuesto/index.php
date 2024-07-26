@@ -7,19 +7,19 @@ require '../../models/Puesto.php';
 $empleadoModel = new Empleados();
 $puestoModel = new obtenerPuestos();
 
-$empleados = $empleadoModel->obtenerEmpleados(); // Asegúrate de que este método devuelve un array de empleados
-$puestos = $puestoModel->obtenerPuestos(); // Asegúrate de que este método devuelve un array de puestos
+$empleados = $empleadoModel->obtenerEmpleados();
+$puestos = $puestoModel->obtenerPuestos();
 ?>
 
 <div class="container mt-5">
     <h1 class="text-center">ASIGNACIÓN DE PUESTOS</h1>
     <div class="row justify-content-center">
-        <?php if ($error) : ?>
+        <?php if (isset($error)) : ?>
             <div class="alert alert-danger">
                 <?= htmlspecialchars($error) ?>
             </div>
         <?php endif; ?>
-        <form action="../../controladores/asignacion/guardar.php" method="POST" class="col-lg-8 border bg-light p-4 rounded shadow">
+        <form>
             <div class="row mb-4">
                 <div class="col">
                     <label for="empleado_id" class="form-label">EMPLEADO</label>
@@ -42,9 +42,18 @@ $puestos = $puestoModel->obtenerPuestos(); // Asegúrate de que este método dev
                     </select>
                 </div>
             </div>
-            <div class="row mb-4">
+            <div class="row justify-content-center mb-3">
                 <div class="col">
-                    <button type="submit" class="btn btn-primary w-100">ASIGNAR</button>
+                    <button type="submit" id="btnAsignar" class="btn btn-primary w-100">Asignar</button>
+                </div>
+                <div class="col">
+                    <button type="button" id="btnBuscar" class="btn btn-info w-100">Buscar</button>
+                </div>
+                <div class="col">
+                    <button type="button" id="btnCancelar" class="btn btn-secondary w-100">Cancelar</button>
+                </div>
+                <div class="col">
+                    <button type="reset" id="btnLimpiar" class="btn btn-secondary w-100">Limpiar</button>
                 </div>
             </div>
         </form>
@@ -61,7 +70,6 @@ $puestos = $puestoModel->obtenerPuestos(); // Asegúrate de que este método dev
                     <th>Puesto</th>
                     <th>Modificar</th>
                     <th>Eliminar</th>
-
                 </tr>
             </thead>
             <tbody>

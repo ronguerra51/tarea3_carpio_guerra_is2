@@ -15,7 +15,7 @@ const getAsignaciones = async () => {
         const fragment = document.createDocumentFragment();
         let contador = 1;
 
-        if (respuesta.status == 200) {
+        if (respuesta.status === 200) {
             Swal.mixin({
                 toast: true,
                 position: "top-end",
@@ -47,7 +47,7 @@ const getAsignaciones = async () => {
 
                     buttonModificar.textContent = 'Modificar';
                     buttonModificar.classList.add('btn', 'btn-warning', 'w-100');
-                    buttonModificar.addEventListener('click', () => modificarAsignacion(asignacion.asignacionpuesto_id));
+                    buttonModificar.addEventListener('click', () => modificar(asignacion.asignacionpuesto_id));
 
                     buttonEliminar.textContent = 'Eliminar';
                     buttonEliminar.classList.add('btn', 'btn-danger', 'w-100');
@@ -86,7 +86,7 @@ const guardarAsignacion = async (e) => {
     e.preventDefault();
     const url = '/tarea3_carpio_guerra_is2/controllers/asignacion/index.php';
     const formData = new FormData(formAsignacion);
-    formData.append('tipo', '1'); // Asegúrate de que el tipo se está enviando correctamente
+    formData.append('tipo', '1');
     const config = {
         method: 'POST',
         body: formData
@@ -120,8 +120,54 @@ const guardarAsignacion = async (e) => {
     }
 };
 
-const modificarAsignacion = async (id) => {
-    // Implementa la lógica para modificar la asignación aquí.
+const modificar = async (e) => {
+    e.preventDefault();
+    const url = '/tarea3_carpio_guerra_is2/controllers/asignacion/index.php';
+    const formData = new FormData(formModificar);
+    formData.append('tipo', '2'); // Tipo para modificar
+    const config = {
+        method: 'POST',
+        body: formData
+    };
+
+    try {
+        const respuesta = await fetch(url, config);
+        const data = await respuesta.json();
+        Swal.mixin({
+            toast: true,
+            position: "top-end",
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            icon: data.codigo === 1 ? 'success' : 'error',
+            title: data.mensaje,
+            didOpen: (toast) => {
+                toast.onmouseenter = Swal.stopTimer;
+                toast.onmouseleave = Swal.resumeTimer;
+            }
+        }).fire();
+
+        if (data.codigo === 1) {
+            formModificar.reset();
+            modalModificar.hide();
+            getAsignaciones();
+        }
+    } catch (error) {
+        console.log('Error de conexión:', error);
+        Swal.mixin({
+            toast: true,
+            position: "top-end",
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            icon: "error",
+            title: 'Error de conexión',
+            didOpen: (toast) => {
+                toast.onmouseenter = Swal.stopTimer;
+                toast.onmouseleave = Swal.resumeTimer;
+            }
+        }).fire();
+    }
 };
 
 const eliminarAsignacion = async (id) => {
@@ -135,7 +181,7 @@ const eliminarAsignacion = async (id) => {
     });
 
     if (confirmacion.isConfirmed) {
-        const url = `/tarea3_carpio_guerra_is2/controllers/asignacion/index.php`;
+        const url = '/tarea3_carpio_guerra_is2/controllers/asignacion/index.php';
         const formData = new FormData();
         formData.append('tipo', '3');  // Asegúrate de enviar el tipo de operación
         formData.append('asignacionpuesto_id', id);

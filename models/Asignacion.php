@@ -21,8 +21,18 @@ class Asignacion extends Conexion
             ':empleado_id' => $this->empleado_id,
             ':puesto_id' => $this->puesto_id
         ];
-        $resultado = $this->ejecutar($sql, $params);
-        return $resultado;
+        return $this->ejecutar($sql, $params);
+    }
+
+    public function modificar()
+    {
+        $sql = "UPDATE asignacionespuestos SET empleado_id = :empleado_id, puesto_id = :puesto_id WHERE asignacionpuesto_id = :asignacionpuesto_id";
+        $params = [
+            ':asignacionpuesto_id' => $this->asignacionpuesto_id,
+            ':empleado_id' => $this->empleado_id,
+            ':puesto_id' => $this->puesto_id
+        ];
+        return $this->ejecutar($sql, $params);
     }
 
     public function eliminar()
@@ -31,8 +41,7 @@ class Asignacion extends Conexion
         $params = [
             ':asignacionpuesto_id' => $this->asignacionpuesto_id
         ];
-        $resultado = $this->ejecutar($sql, $params);
-        return $resultado;
+        return $this->ejecutar($sql, $params);
     }
 
     public function obtenerAsignaciones()
@@ -42,7 +51,6 @@ class Asignacion extends Conexion
                 JOIN empleado e ON a.empleado_id = e.empleado_id
                 JOIN puestos p ON a.puesto_id = p.puesto_id
                 WHERE a.asignacionpuesto_situacion = 1";
-        $resultado = self::servir($sql);
-        return $resultado;
+        return self::servir($sql);
     }
 }

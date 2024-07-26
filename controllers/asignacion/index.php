@@ -3,19 +3,25 @@ require '../../models/Asignacion.php';
 header('Content-Type: application/json; charset=UTF-8');
 
 $metodo = $_SERVER['REQUEST_METHOD'];
-$tipo = $_REQUEST['tipo'] ?? null;
+$tipo = $_POST['tipo'] ?? null;
 
 try {
     switch ($metodo) {
         case 'POST':
             $asignacion = new Asignacion($_POST);
             switch ($tipo) {
-                case '1':
+                case '1': // Asignar
                     $ejecucion = $asignacion->asignar();
                     $mensaje = "Asignación realizada correctamente";
                     break;
 
-                case '3':
+                case '2': // Modificar
+                    $asignacion->asignacionpuesto_id = $_POST['asignacionpuesto_id'];
+                    $ejecucion = $asignacion->modificar();
+                    $mensaje = "Asignación modificada correctamente";
+                    break;
+
+                case '3': // Eliminar
                     $asignacion->asignacionpuesto_id = $_POST['asignacionpuesto_id'];
                     $ejecucion = $asignacion->eliminar();
                     $mensaje = "Asignación eliminada correctamente";
