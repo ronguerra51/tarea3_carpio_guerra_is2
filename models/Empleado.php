@@ -2,6 +2,18 @@
 require_once 'Conexion.php';
 
 
+
+class Empleados extends Conexion
+{
+    public function obtenerEmpleados()
+    {
+        $sql = "SELECT empleado_id, empleado_nombre FROM empleado";
+        $resultado = self::servir($sql);
+        return $resultado;
+    }
+}
+
+
 class Empleado extends Conexion
 {
     public $empleado_id;

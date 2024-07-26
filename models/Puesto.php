@@ -2,6 +2,18 @@
 require_once 'Conexion.php';
 
 
+
+class obtenerPuestos extends Conexion
+{
+    public function obtenerPuestos()
+    {
+        $sql = "SELECT puesto_id, puesto_nombre FROM puestos";
+        $resultado = self::servir($sql);
+        return $resultado;
+    }
+}
+
+
 class Puesto extends Conexion
 {
     public $puesto_id;
