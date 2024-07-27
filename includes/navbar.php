@@ -23,6 +23,9 @@
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="/tarea3_carpio_guerra_is2/views/asignacionarea/index.php">ASIGNAR AREA</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="/tarea3_carpio_guerra_is2/views/organizacion/index.php">ORGANIZACION</a>
+                </li>
             </ul>
         </div>
     </div>
