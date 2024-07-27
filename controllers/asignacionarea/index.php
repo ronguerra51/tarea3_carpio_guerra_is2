@@ -1,5 +1,5 @@
 <?php
-require '../../models/Asignacion.php';
+require '../../models/Asignacionarea.php';
 header('Content-Type: application/json; charset=UTF-8');
 
 $metodo = $_SERVER['REQUEST_METHOD'];
@@ -8,16 +8,16 @@ $tipo = $_POST['tipo'] ?? null;
 try {
     switch ($metodo) {
         case 'POST':
-            $asignacion = new Asignacion($_POST);
+            $asigarea = new AsigArea($_POST);
             switch ($tipo) {
                 case '1': // Asignar
-                    $ejecucion = $asignacion->asignar();
+                    $ejecucion = $asigarea->asignar();
                     $mensaje = "Asignación realizada correctamente";
                     break;
 
                 case '3': // Eliminar
-                    $asignacion->asignacionpuesto_id = $_POST['asignacionpuesto_id'];
-                    $ejecucion = $asignacion->eliminar();
+                    $asigarea->asignacionarea_id = $_POST['asignacionarea_id'];
+                    $ejecucion = $asiarea->eliminar();
                     $mensaje = "Asignación eliminada correctamente";
                     break;
 
@@ -32,10 +32,10 @@ try {
             break;
 
         case 'GET':
-            $asignacion = new Asignacion();
-            $asignaciones = $asignacion->obtenerAsignaciones();
+            $asigarea = new Asigarea();
+            $asigareas= $asigarea->obtenerAsigarea();
             http_response_code(200);
-            echo json_encode($asignaciones);
+            echo json_encode($asigareas);
             break;
 
         default:
@@ -53,7 +53,7 @@ try {
         "mensaje" => "Error de ejecución",
         "codigo" => 0,
     ]);
-    error_log($e->getMessage()); // Guarda el error en el log del servidor
+    error_log($e->getMessage());
 }
 
 exit;

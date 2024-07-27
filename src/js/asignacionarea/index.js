@@ -1,8 +1,8 @@
 const formAsignacion = document.querySelector('form');
-const tablaAsignacionPuesto = document.getElementById('tablaAsignacionPuesto');
+const tablaAsignacionArea = document.getElementById('tablaAsignacionArea');
 
-const getAsignaciones = async () => {
-    const url = '/tarea3_carpio_guerra_is2/controllers/asignacion/index.php';
+const getAsigareas = async () => {
+    const url = '/tarea3_carpio_guerra_is2/controllers/asignacionarea/index.php';
     const config = {
         method: 'GET'
     };
@@ -11,7 +11,7 @@ const getAsignaciones = async () => {
         const respuesta = await fetch(url, config);
         const data = await respuesta.json();
 
-        tablaAsignacionPuesto.tBodies[0].innerHTML = '';
+        tablaAsignacionArea.tBodies[0].innerHTML = '';
         const fragment = document.createDocumentFragment();
         let contador = 1;
 
@@ -37,15 +37,16 @@ const getAsignaciones = async () => {
                     const celda2 = document.createElement('td');
                     const celda3 = document.createElement('td');
                     const celda4 = document.createElement('td');
+                    const buttonModificar = document.createElement('button');
                     const buttonEliminar = document.createElement('button');
 
                     celda1.innerText = contador;
                     celda2.innerText = asignacion.empleado_nombre;
-                    celda3.innerText = asignacion.puesto_nombre;
+                    celda3.innerText = asignacion.area_nombre;
 
                     buttonEliminar.textContent = 'Eliminar';
                     buttonEliminar.classList.add('btn', 'btn-danger', 'w-100');
-                    buttonEliminar.addEventListener('click', () => eliminarAsignacion(asignacion.asignacionpuesto_id));
+                    buttonEliminar.addEventListener('click', () => eliminarAsignacion(asignacion.asignacionarea_id));
 
                     celda4.appendChild(buttonEliminar);
 
@@ -68,15 +69,15 @@ const getAsignaciones = async () => {
             }
         }
 
-        tablaAsignacionPuesto.tBodies[0].appendChild(fragment);
+        tablaAsignacionArea.tBodies[0].appendChild(fragment);
     } catch (error) {
         console.error('Error:', error);
     }
 };
 
-const guardarAsignacion = async (e) => {
+const guardarAsigarea = async (e) => {
     e.preventDefault();
-    const url = '/tarea3_carpio_guerra_is2/controllers/asignacion/index.php';
+    const url = '/tarea3_carpio_guerra_is2/controllers/asignacionarea/index.php';
     const formData = new FormData(formAsignacion);
     formData.append('tipo', '1');
     const config = {
@@ -104,7 +105,7 @@ const guardarAsignacion = async (e) => {
         }).fire();
 
         if (codigo === 1) {
-            getAsignaciones();
+            getAsigareas();
             formAsignacion.reset();
         }
     } catch (error) {
@@ -112,8 +113,7 @@ const guardarAsignacion = async (e) => {
     }
 };
 
-
-const eliminarAsignacion = async (id) => {
+const eliminarAsigarea = async (id) => {
     const confirmacion = await Swal.fire({
         title: '¿Estás seguro de eliminar esta asignación?',
         icon: 'warning',
@@ -124,10 +124,10 @@ const eliminarAsignacion = async (id) => {
     });
 
     if (confirmacion.isConfirmed) {
-        const url = '/tarea3_carpio_guerra_is2/controllers/asignacion/index.php';
+        const url = '/tarea3_carpio_guerra_is2/controllers/asignacionarea/index.php';
         const formData = new FormData();
-        formData.append('tipo', '3'); 
-        formData.append('asignacionpuesto_id', id);
+        formData.append('tipo', '3');  // Asegúrate de enviar el tipo de operación
+        formData.append('asignacionarea_id', id);
         const config = {
             method: 'POST',
             body: formData
@@ -153,7 +153,7 @@ const eliminarAsignacion = async (id) => {
             }).fire();
 
             if (codigo === 1) {
-                getAsignaciones();
+                getAsigareas();
             }
         } catch (error) {
             console.error('Error:', error);
@@ -161,6 +161,6 @@ const eliminarAsignacion = async (id) => {
     }
 };
 
-formAsignacion.addEventListener('submit', guardarAsignacion);
+formAsignacion.addEventListener('submit', guardarAsigarea);
 
-getAsignaciones();
+getAsigareas();

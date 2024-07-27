@@ -2,6 +2,16 @@
 require_once 'Conexion.php';
 
 
+class obtenerAreas extends Conexion
+{
+    public function obtenerAreas()
+    {
+        $sql = "SELECT area_id, area_nombre FROM areas";
+        $resultado = self::servir($sql);
+        return $resultado;
+    }
+}
+
 class Area extends Conexion
 {
     public $area_id;

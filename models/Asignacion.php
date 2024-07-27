@@ -24,17 +24,6 @@ class Asignacion extends Conexion
         return $this->ejecutar($sql, $params);
     }
 
-    public function modificar()
-    {
-        $sql = "UPDATE asignacionespuestos SET empleado_id = :empleado_id, puesto_id = :puesto_id WHERE asignacionpuesto_id = :asignacionpuesto_id";
-        $params = [
-            ':asignacionpuesto_id' => $this->asignacionpuesto_id,
-            ':empleado_id' => $this->empleado_id,
-            ':puesto_id' => $this->puesto_id
-        ];
-        return $this->ejecutar($sql, $params);
-    }
-
     public function eliminar()
     {
         $sql = "DELETE FROM asignacionespuestos WHERE asignacionpuesto_id = :asignacionpuesto_id";

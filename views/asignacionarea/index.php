@@ -1,18 +1,24 @@
 <?php include_once '../../includes/header.php' ?>
 
+<?php 
+// ini_set('display_errors', 1);
+// ini_set('display_startup_errors', 1);
+// error_reporting(E_ALL);
+?> 
+
 <?php
 require '../../models/Empleado.php';
-require '../../models/Puesto.php';
+require '../../models/Area.php';
 
 $empleadoModel = new Empleados();
-$puestoModel = new obtenerPuestos();
+$areaModel = new obtenerAreas();
 
 $empleados = $empleadoModel->obtenerEmpleados();
-$puestos = $puestoModel->obtenerPuestos();
+$areas = $areaModel->obtenerAreas();
 ?>
 
 <div class="container mt-5">
-    <h1 class="text-center">ASIGNACIÓN DE PUESTOS</h1>
+    <h1 class="text-center">ASIGNACIÓN DE AREAS</h1>
     <div class="row justify-content-center">
         <?php if (isset($error)) : ?>
             <div class="alert alert-danger">
@@ -33,11 +39,11 @@ $puestos = $puestoModel->obtenerPuestos();
             </div>
             <div class="row mb-4">
                 <div class="col">
-                    <label for="puesto_id" class="form-label">PUESTO</label>
-                    <select name="puesto_id" id="puesto_id" class="form-select">
+                    <label for="area_id" class="form-label">AREAS</label>
+                    <select name="area_id" id="area_id" class="form-select">
                         <option value="">SELECCIONE...</option>
-                        <?php foreach ($puestos as $puesto) : ?>
-                            <option value="<?= htmlspecialchars($puesto['puesto_id']) ?>"><?= htmlspecialchars($puesto['puesto_nombre']) ?></option>
+                        <?php foreach ($areas as $area) : ?>
+                            <option value="<?= htmlspecialchars($area['area_id']) ?>"><?= htmlspecialchars($area['area_nombre']) ?></option>
                         <?php endforeach ?>
                     </select>
                 </div>
@@ -61,19 +67,19 @@ $puestos = $puestoModel->obtenerPuestos();
 </div>
 <div class="row justify-content-center">
     <div class="col-lg-8 table-responsive">
-        <h2 class="text-center">TABLA DE EMPLEADOS CON SU PUESTO</h2>
-        <table class="table table-bordered table-hover" id="tablaAsignacionPuesto">
+        <h2 class="text-center">TABLA DE AREAS CON SU PUESTO</h2>
+        <table class="table table-bordered table-hover" id="tablaAsignacionArea">
             <thead>
                 <tr>
                     <th>No.</th>
                     <th>Nombre</th>
-                    <th>Puesto</th>
+                    <th>Area</th>
                     <th>Eliminar</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <td colspan="5">No hay Empleados con Puestos Registrados</td>
+                    <td colspan="5">No hay Empleados con Areas Registrados</td>
                 </tr>
             </tbody>
         </table>
@@ -81,5 +87,6 @@ $puestos = $puestoModel->obtenerPuestos();
 </div>
 
 <script defer src="/tarea3_carpio_guerra_is2/src/js/funciones.js"></script>
-<script defer src="/tarea3_carpio_guerra_is2/src/js/asignacionpuesto/index.js"></script>
+<script defer src="/tarea3_carpio_guerra_is2/src/js/asignacionarea/index.js"></script>
+
 <?php include_once '../../includes/footer.php' ?>
